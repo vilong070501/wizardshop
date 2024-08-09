@@ -1,2 +1,2 @@
-# wizardshop
-A site web made with Symfony
+# Wizardshop
+A website made with Symfony
