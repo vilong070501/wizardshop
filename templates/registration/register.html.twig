@@ -20,6 +20,8 @@
                     {{ form_errors(registrationForm.agreeTerms) }}
                 </div>
 
+                {{ form_row(registrationForm._token) }}
+
                 <button type="submit" class="btn btn-primary mt-3 m-lg-3">Register</button>
             {{ form_end(registrationForm) }}
         </div>

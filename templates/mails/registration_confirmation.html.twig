@@ -1,0 +1,12 @@
+<h1>Welcome to Wizard Shop</h1>
+<p>
+    Nice to meet you {{ user.username }} and welcome to our Wizard Shop! <br><br>
+    To finalize your registration, please click on the link provided below.<br><br>
+    <a href="{{ absolute_url(path('account_verify', {token: token, id: user.id})) }}">
+        Activate my account
+    </a><br><br>
+    Do not wait for too long, the link is only valid until <strong>{{ lifeTimeToken }}</strong>.
+    After this date, the link will no longer be valid.<br><br>
+    Hope to see you soon on our shop !<br><br>
+    <strong>This is an automated email, please do not reply to it.</strong>
+</p>
