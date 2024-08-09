@@ -21,6 +21,7 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 target: app_login
+            user_checker: App\Security\UserConfirmation
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -29,6 +30,10 @@ security:
                 # by default, the feature is enabled by checking a checkbox in the
                 # login form, uncomment the following line to always enable it.
                 #always_remember_me: true
+
+            two_factor:
+                auth_form_path: 2fa_login
+                check_path: 2fa_login_check
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -41,6 +46,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/logout, role: PUBLIC_ACCESS }
+        - { path: ^/2fa, role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
 
 when@test:
     security:
