@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -18,19 +19,22 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class RegistrationController extends AbstractController
 {
+    /**
+     * @throws TransportExceptionInterface
+     */
     #[Route('/register', name: 'app_register')]
     public function register(
-        Request $request, UserPasswordHasherInterface $userPasswordHasher,
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
         MailerService $mailerService,
-        TokenGeneratorInterface $tokenGenerator): Response
-    {
+        TokenGeneratorInterface $tokenGenerator
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             // Generate token
             $tokenRegistration = $tokenGenerator->generateToken();
 
@@ -48,7 +52,10 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Your account has been created. Please verify your email to activate your account.');
+            $this->addFlash(
+                'success',
+                'Your account has been created. Please verify your email to activate your account.'
+            );
             $mailerService->sendMail(
                 $user->getEmail(),
                 'Confirmation of your user account',

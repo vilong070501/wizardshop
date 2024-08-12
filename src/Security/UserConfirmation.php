@@ -27,7 +27,8 @@ class UserConfirmation implements UserCheckerInterface
             // the message passed to this exception is meant to be displayed to the user
             throw new CustomUserMessageAccountStatusException(
                 "Your user account is not verified, please check your email and verify your account before
-                    {$user->getTokenRegistrationLifeTime()->format("Y-m-d H:i:s")}");
+                    {$user->getTokenRegistrationLifeTime()->format("Y-m-d H:i:s")}"
+            );
         }
     }
 }

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-4">Products</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th class="text-center">Title</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Content</th>
+            <th class="text-center">Image</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td class="text-center">{{ product.title }}</td>
+                <td class="text-center">{{ product.price|number_format(2, '.', ',') }} €</td>
+                <td class="text-center">{{ product.content }}</td>
+                <td>
+                    {% if product.attachment %}
+                        <img src="{{ asset('images/' ~ product.attachment) }}" alt="{{ product.title }}" class="img-thumbnail" style="max-width: 150px;">
+                    {% else %}
+                        <span>No image</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No products found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

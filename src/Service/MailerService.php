@@ -13,8 +13,9 @@ use Symfony\Component\Mime\Address;
 class MailerService
 {
     public function __construct(
-       private readonly MailerInterface $mailer
-    ) {}
+        private readonly MailerInterface $mailer
+    ) {
+    }
 
     /**
      * @param string $to
