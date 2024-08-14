@@ -42,4 +42,4 @@ yarn-error.log
 .env.test
 
 ###  Executables ###
-bin/
+/bin/
