@@ -1,40 +1,110 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %}Our Magical Products{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Wrapper for background image */
+        .background-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Ensure it stays behind content */
+        }
+
+        /* Blurred background image */
+        .background-image {
+            width: 100%;
+            height: 100%;
+            background: url("{{ asset('images/hogwarts-background.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px); /* Blur effect */
+            z-index: -1;
+        }
+
+        /* Content container */
+        .content-container {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            color: #f8f9fa;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three columns */
+            gap: 20px;
+            margin: 40px auto; /* Margin on the sides and top/bottom */
+            max-width: 1200px; /* Restrict the width of the grid */
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 1.1em;
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1 class="text-center my-4">Products</h1>
+    <!-- Background wrapper and image -->
+    <div class="background-wrapper">
+        <div class="background-image"></div>
+    </div>
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th class="text-center">Title</th>
-            <th class="text-center">Price</th>
-            <th class="text-center">Content</th>
-            <th class="text-center">Image</th>
-            <th class="text-center"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td class="text-center">{{ product.title }}</td>
-                <td class="text-center">{{ product.price|number_format(2, '.', ',') }} €</td>
-                <td class="text-center">{{ product.content }}</td>
-                <td>
-                    {% if product.attachment %}
-                        <img src="{{ asset(product.attachment) }}" alt="{{ product.title }}" class="img-thumbnail" style="max-width: 150px;">
-                    {% else %}
-                        <span>No image</span>
-                    {% endif %}
-                </td>
-                <td><a href={{ path('cart_add', { id: product.id }) }}>Add to cart</a></td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4" class="text-center">No products found.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <!-- Main content container -->
+    <div class="container content-container">
+        <h1 class="text-center my-5">Our Magical Products</h1>
+
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product-card">
+                    <a href="">
+                        <img src="{{ asset(product.attachment) }}" alt="{{ product.title }}">
+                    </a>
+                    <div class="product-info">
+                        <div class="product-title">{{ product.title }}</div>
+                        <div class="product-price">{{ product.price|number_format(2, '.', ',') }} €</div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center col-12">No products found.</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
