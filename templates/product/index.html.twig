@@ -23,7 +23,7 @@
                 <td class="text-center">{{ product.content }}</td>
                 <td>
                     {% if product.attachment %}
-                        <img src="{{ asset('images/' ~ product.attachment) }}" alt="{{ product.title }}" class="img-thumbnail" style="max-width: 150px;">
+                        <img src="{{ asset(product.attachment) }}" alt="{{ product.title }}" class="img-thumbnail" style="max-width: 150px;">
                     {% else %}
                         <span>No image</span>
                     {% endif %}
