@@ -12,6 +12,7 @@
             <th class="text-center">Price</th>
             <th class="text-center">Content</th>
             <th class="text-center">Image</th>
+            <th class="text-center"></th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                         <span>No image</span>
                     {% endif %}
                 </td>
+                <td><a href={{ path('cart_add', { id: product.id }) }}>Add to cart</a></td>
             </tr>
         {% else %}
             <tr>
