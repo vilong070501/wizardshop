@@ -20,7 +20,7 @@
             {% for product in products %}
                 <div class="product-card">
                     <a href="{{ path('product_detail', { id: product.id }) }}">
-                        <img src="{{ asset(product.attachment) }}" alt="{{ product.title }}">
+                        <img src="{{ asset('uploads/attachments/' ~ product.attachment) }}" alt="{{ product.title }}">
                     </a>
                     <div class="product-info">
                         <div class="product-title">{{ product.title }}</div>

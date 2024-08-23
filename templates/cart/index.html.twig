@@ -2,70 +2,72 @@
 
 {% block title %}Hello CartController!{% endblock %}
 
-{% block stylesheets %}{% endblock %}
+{% block stylesheets %}
+{% endblock %}
 
 {% block body %}
     <main class="page_wrapper">
         {% if cart|length > 0 %}
             <div class="container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2">
-                <div class="row">
-                    <div class="col-lg-12 offset-lg-1 pt-1">
-                        <h2 class="text-center pt-md-2 my-4 mt-lg-5">My cart</h2>
-                        <p>Add other items to my cart <a href="{{ path('shop_index') }}">My shop</a></p>
-                        <a href="{{ path('cart_remove_all') }}">Remove all</a>
+                <form action="{{ path('order_index') }}">
+                    <div class="row">
+                        <div class="col-lg-12 offset-lg-1 pt-1">
+                            <h2 class="text-center pt-md-2 my-4 mt-lg-5">My cart</h2>
+                            <p>Add other items to my cart <a href="{{ path('shop_index') }}">My shop</a></p>
+                            <a href="{{ path('cart_remove_all') }}">Remove all</a>
 
-                        {% set total = null %}
+                            {% set total = null %}
 
-                        {% for item in cart %}
-                            {% set total = total + (item.product.price * item.quantity)  %}
-                            <div class="d-sm-flex align-items-center border-top py-4">
-{#                                <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-xl-3 mb-2 mb-sm-0" href="#">#}
-{#                                    <img src="{{ asset('/img/shop/cart/03.png') }}" width="110" alt="Product">#}
-{#                                </a>#}
-                                <div class="w-100 pt-1 ps-sm-4">
-                                    <div class="d-flex">
-                                        <div class="me-3">
-                                            <h3 class="h5 mb-2">
-                                                <a href="{{ path('product_detail', { id: item.product.id }) }}">{{ item.product.title }}</a>
-                                            </h3>
-                                            <p class="mb-2">{{ item.product.subtitle }}</p>
+                            {% for item in cart %}
+                                {% set total = total + (item.product.price * item.quantity)  %}
+                                <div class="d-sm-flex align-items-center border-top py-4">
+                                    <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-xl-3 mb-2 mb-sm-0" href="{{ path('product_detail', { id: item.product.id }) }}">
+                                        <img src="{{ vich_uploader_asset(item.product, 'attachmentFile') }}" width="110" alt="Product">
+                                    </a>
+                                    <div class="w-100 pt-1 ps-sm-4">
+                                        <div class="d-flex">
+                                            <div class="me-3">
+                                                <h3 class="h5 mb-2">
+                                                    <a href="{{ path('product_detail', { id: item.product.id }) }}">{{ item.product.title }}</a>
+                                                </h3>
+                                                <p class="mb-2">{{ item.product.subtitle }}</p>
+                                            </div>
+                                            <div class="text-end ms-auto">
+                                                <span class="fs-5 mb-2">{{ (item.product.price * item.quantity)|number_format(2, ',', '.') }} €</span>
+                                            </div>
                                         </div>
-                                        <div class="text-end ms-auto">
-                                            <span class="fs-5 mb-2">{{ (item.product.price * item.quantity)|number_format(2, ',', '.') }} €</span>
+                                        <div class="count-input ms-n3">
+                                            <a href="{{ path('cart_decrease', { id: item.product.id }) }}" class="btn btn-icon fs-xl" data-decrement>-</a>
+                                            <label>
+                                                <input class="form-control text-center" type="number" value="{{ item.quantity }}" readonly>
+                                            </label>
+                                            <a href="{{ path('cart_add', { id: item.product.id }) }}" class="btn btn-icon fs-xl" data-increment>+</a>
                                         </div>
-                                    </div>
-                                    <div class="count-input ms-n3">
-                                        <a href="{{ path('cart_decrease', { id: item.product.id }) }}" class="btn btn-icon fs-xl" data-decrement>-</a>
-                                        <label>
-                                            <input class="form-control text-center" type="number" value="{{ item.quantity }}" readonly>
-                                        </label>
-                                        <a href="{{ path('cart_add', { id: item.product.id }) }}" class="btn btn-icon fs-xl" data-increment>+</a>
-                                    </div>
-                                    <div class="nav justify-content-end mt-n5 mt-sm-n3">
-                                        <a class="nav-link fs-xl p-2" href="{{ path('cart_remove', { id: item.product.id }) }}" data-bs-toggle="tooltip" title="Remove">
-                                            <i class="ai-trash"></i>
-                                            Remove
-                                        </a>
+                                        <div class="nav justify-content-end mt-n5 mt-sm-n3">
+                                            <a class="nav-link fs-xl p-2" href="{{ path('cart_remove', { id: item.product.id }) }}" data-bs-toggle="tooltip" title="Remove">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
+                            {% endfor %}
+                            <ul class="list-unstyled py-3   mb-0">
+                                <li class="d-flex justify-content-between mb-2">
+                                    Number of items:
+                                    <span class="fw-semibold ms-2">{{ cart|length }}</span>
+                                </li>
+                            </ul>
+                            <div class="d-flex align-items-center justify-content-between border-top fs-xl pt-4">
+                                Total:
+                                <span class="fs-3 fw-semibold text-dark ms-2">{{ total|number_format(2, ',', '.') }} €</span>
                             </div>
-                        {% endfor %}
-                        <ul class="list-unstyled py-3   mb-0">
-                            <li class="d-flex justify-content-between mb-2">
-                                Number of items:
-                                <span class="fw-semibold ms-2">{{ cart|length }}</span>
-                            </li>
-                        </ul>
-                        <div class="d-flex align-items-center justify-content-between border-top fs-xl pt-4">
-                            Total:
-                            <span class="fs-3 fw-semibold text-dark ms-2">{{ total|number_format(2, ',', '.') }} €</span>
+                            <button class="confirm-button" type="submit">
+                                Confirm my cart
+                            </button>
                         </div>
-                        <button class="btn btn-lg btn-primary w-100 w-sm-auto mt-4" type="submit">
-                            Confirm my cart
-                        </button>
-
                     </div>
-                </div>
+                </form>
+
             </div>
         {% else %}
             <div class="container d-flex flex-column justify-content-center min-vh-100 py-5">
