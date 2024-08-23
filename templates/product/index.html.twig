@@ -94,7 +94,7 @@
         <div class="product-grid">
             {% for product in products %}
                 <div class="product-card">
-                    <a href="">
+                    <a href="{{ path('product_detail', { id: product.id }) }}">
                         <img src="{{ asset(product.attachment) }}" alt="{{ product.title }}">
                     </a>
                     <div class="product-info">

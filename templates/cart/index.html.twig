@@ -2,6 +2,8 @@
 
 {% block title %}Hello CartController!{% endblock %}
 
+{% block stylesheets %}{% endblock %}
+
 {% block body %}
     <main class="page_wrapper">
         {% if cart|length > 0 %}
@@ -24,7 +26,7 @@
                                     <div class="d-flex">
                                         <div class="me-3">
                                             <h3 class="h5 mb-2">
-                                                <a href="#">{{ item.product.title }}</a>
+                                                <a href="{{ path('product_detail', { id: item.product.id }) }}">{{ item.product.title }}</a>
                                             </h3>
                                             <p class="mb-2">{{ item.product.subtitle }}</p>
                                         </div>

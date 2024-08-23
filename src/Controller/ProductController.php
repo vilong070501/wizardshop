@@ -18,4 +18,13 @@ class ProductController extends AbstractController
             'products' => $products
         ]);
     }
+
+    #[Route('/product/{id}', name: 'product_detail')]
+    public function detailPage(ProductRepository $productRepository, int $id): Response
+    {
+        $product = $productRepository->find($id);
+        return $this->render('product/detail.html.twig', [
+            'product' => $product
+        ]);
+    }
 }

@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .product-detail-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin: 40px auto;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .product-image {
+            flex: 1;
+            max-width: 50%;
+            text-align: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-info {
+            flex: 1;
+            padding-left: 40px;
+        }
+
+        .product-title {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .product-price {
+            font-size: 1.5em;
+            color: #6e260e;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .product-subtitle {
+            font-size: 1.2em;
+            color: #5c4033;
+            margin-bottom: 30px;
+        }
+
+        .add-to-cart-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .add-to-cart-btn .cart-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="product-detail-container">
+        <!-- Left Part: Product Image -->
+        <div class="product-image">
+            <img src="{{ asset(product.attachment) }}" alt="{{ product.title }}">
+        </div>
+
+        <!-- Right Part: Product Information -->
+        <div class="product-info">
+            <h1 class="product-title">{{ product.title }}</h1>
+            <div class="product-price">{{ product.price|number_format(2, '.', ',') }} €</div>
+            <div class="product-subtitle">{{ product.subtitle }}</div>
+
+            <a href="{{ path('cart_add', { id: product.id }) }}" class="add-to-cart-btn">
+                <span class="cart-icon">&#128722;</span> <!-- Unicode cart icon -->
+                Add to Cart
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
