@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/product_detail.css') }}"
+{% endblock %}
+
+{% block body %}
+    <div class="product-detail-container">
+        <!-- Left Part: Product Image -->
+        <div class="product-image">
+            <img src="{{ asset(product.attachment) }}" alt="{{ product.title }}">
+        </div>
+
+        <!-- Right Part: Product Information -->
+        <div class="product-info">
+            <h1 class="product-title">{{ product.title }}</h1>
+            <div class="product-price">{{ product.price|number_format(2, '.', ',') }} €</div>
+            <div class="product-subtitle">{{ product.subtitle }}</div>
+
+            <a href="{{ path('cart_add', { id: product.id }) }}" class="add-to-cart-btn">
+                <span class="cart-icon">&#128722;</span> <!-- Unicode cart icon -->
+                Add to Cart
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
