@@ -2,6 +2,17 @@
 
 {% block title %}Hello HomeController!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}"
+{% endblock %}
+
 {% block body %}
-    <h1>Welcome to Wizardry World</h1>
+    <div class="home-background">
+        <div class="content-container">
+            <h1>Welcome to Our Magical Shop</h1>
+            <a href="{{ path('shop_index') }}" class="explore-link">
+                <i class="fas fa-magic"></i> Explore our mysterious objects
+            </a>
+        </div>
+    </div>
 {% endblock %}

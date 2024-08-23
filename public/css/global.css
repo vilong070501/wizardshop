@@ -3,11 +3,11 @@ body {
     font-family: 'Lumos', serif;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
+/*.dropdown:hover .dropdown-menu {*/
+/*    display: block;*/
+/*}*/
 
-/* Ensure the dropdown-menu is positioned correctly */
-.dropdown-menu {
-    margin-top: 0; /* Adjust the position if needed */
-}
+/*!* Ensure the dropdown-menu is positioned correctly *!*/
+/*.dropdown-menu {*/
+/*    margin-top: 0; !* Adjust the position if needed *!*/
+/*}*/
