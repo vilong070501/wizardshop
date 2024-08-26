@@ -5,29 +5,29 @@ body {
 
 /* Define styles for the mysterious confirm button */
 .confirm-button {
-    font-size: 1.2rem; /* Slightly larger font size */
-    padding: 15px 30px; /* Add padding for better spacing */
-    background: linear-gradient(90deg, #2c3e50, #4b6cb7); /* Dark gradient background */
-    border: 2px solid #8e44ad; /* Border with a mystical purple color */
-    border-radius: 50px; /* Rounded corners */
-    color: #ecf0f1; /* Light text color for contrast */
-    text-transform: uppercase; /* Uppercase text for emphasis */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* Dark shadow for depth */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
-    width: 100%; /* Full width on small screens */
-    max-width: 250px; /* Limit width on larger screens */
-    margin-top: 20px; /* Consistent spacing on top */
-    cursor: pointer; /* Pointer cursor on hover */
-    position: relative; /* Position relative for pseudo-elements */
-    overflow: hidden; /* Hide overflow for border animation */
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    background: linear-gradient(90deg, #2c3e50, #4b6cb7);
+    border: 2px solid #8e44ad;
+    border-radius: 10px;
+    color: #ecf0f1;
+    text-transform: uppercase;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Hover effect for the confirm button */
 .confirm-button:hover {
-    background: linear-gradient(90deg, #4b6cb7, #2c3e50); /* Reverse gradient on hover */
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
-    transform: translateY(-3px); /* Slight lift effect */
-    border-color: #9b59b6; /* Change border color to a lighter purple */
+    background: linear-gradient(90deg, #4b6cb7, #2c3e50);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.7);
+    transform: translateY(-3px);
+    border-color: #9b59b6;
 }
 
 /* Glowing border effect */
@@ -52,6 +52,6 @@ body {
 
 /* Focus effect for the confirm button */
 .confirm-button:focus {
-    outline: none; /* Remove focus outline */
+    outline: none;
     box-shadow: 0 0 0 4px rgba(75, 108, 183, 0.4); /* Focus ring */
 }

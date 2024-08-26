@@ -5,11 +5,11 @@
 {% block stylesheets %}{% endblock %}
 
 {% block body %}
-    <div class="d-none d-lg-block bg-secondary position-fixed top-0 start-0 h-100" style="width: 52.5%;">
+    <div class="d-none d-lg-block position-relative top-0 start-0 h-100">
         <div class="container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2">
             <div class="row">
                 <div class="col-lg-6">
-                    <nav aria-label="breadcrumb">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="mt-5 pt-lg-3 pb-md-1 pb-lg-3 breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ path('home_page') }}">Home</a> </li>
                             <li class="breadcrumb-item"><a href="{{ path('shop_index') }}">Shop</a> </li>
@@ -34,14 +34,14 @@
                 </div>
                 <div class="col-lg-5 offset-lg-1 pt-1">
                     <h2 class="pb-2 pt-md-2 my-4 mt-lg-5">
-                        Order summary <span class="fs-base fw-normal text-muted">({{ recapCart|length }} products)</span>
+                        Order summary <span class="fs-base fw-normal text-muted">({{ recapCart|length }} product(s))</span>
                     </h2>
                     {% set total = null %}
                     {% for item in recapCart %}
                         {%  set total = total + (item.product.price) * item.quantity %}
                         <div class="d-sm-flex align-items-center border-top py-4">
                             <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-xl-3 mb-2 mb-sm-0" href="shop-single.html">
-                                <img src="" width="80" height="80" alt="{{ item.product.title }}">
+                                <img src="{{ vich_uploader_asset(item.product, 'attachmentFile') }}" width="80" height="80" alt="{{ item.product.title }}">
                             </a>
                             <div class="w-100 pt-1 ps-sm-4">
                                 <div class="d-block">
@@ -52,7 +52,7 @@
                                         <p>{{ item.product.subtitle }}</p>
                                     </div>
                                     <div>
-                                        <p class="mb-2">Quantity: x{{ item.quantity }} - Price of product: {{ (item.product.price)|number_format(2, ',', '.') }} €</p>
+                                        <p class="mb-2">Quantity: <b>x{{ item.quantity }}</b> - Price of product: <b>{{ (item.product.price)|number_format(2, ',', '.') }} €</b></p>
                                     </div>
                                 </div>
                                 <div class="nav justify-content-end mt-n4">
@@ -66,9 +66,11 @@
                     <div class="d-flex align-items-center justify-content-between border-top fs-xl pt-4 mb-4">
                         Total: <span class="fs-3 fw-semibold text-dark ms-2">{{ (total)|number_format(2, ',', '.') }} €</span>
                     </div>
-                    <button class="confirm-button" type="submit">
-                        Validate my order
-                    </button>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button class="confirm-button" type="submit">
+                            Validate my order
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
