@@ -69,6 +69,9 @@ class OrderController extends AbstractController
             $deliveryForOrder .= '</br>' . $delivery->getAddress();
             $deliveryForOrder .= '</br>' . $delivery->getZipCode() . ' - ' . $delivery->getCity();
             $deliveryForOrder .= '</br>' . $delivery->getCountry();
+
+            $paymentMethod = $form->get('payment')->getData();
+
             $order = new Order();
             $reference = $datetime->format('dmY') . '-' . uniqid();
             $order->setUser($this->getUser())
@@ -78,7 +81,7 @@ class OrderController extends AbstractController
                 ->setPaid(false)
                 ->setReference($reference)
                 ->setDelivery($deliveryForOrder)
-                ->setMethod('stripe');
+                ->setMethod($paymentMethod);
 
             $this->entityManager->persist($order);
 

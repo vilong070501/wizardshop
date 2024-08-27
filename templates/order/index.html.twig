@@ -30,6 +30,10 @@
                         3.<span class="text-decoration-underline ms-1">Delivery method</span>
                     </h3>
                     {{ form_row(form.transporter)|replace({'[-br]' : '<br/>'})|raw}}
+                    <h3 class="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
+                        4.<span class="text-decoration-underline ms-1">Payment method</span>
+                    </h3>
+                    {{ form_row(form.payment)}}
                 </div>
                 <div class="col-lg-5 offset-lg-1 pt-1">
                     <h2 class="pb-2 pt-md-2 my-4 mt-lg-5">
