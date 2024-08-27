@@ -85,7 +85,7 @@
                     </div>
                     <div class="mt-4 text-center">
                         {% if method == 'stripe' %}
-                            <form method="POST" action="#">
+                            <form method="POST" action="{{ path('payment_stripe', { reference: reference }) }}">
                                 <button class="confirm-button" type="submit" style="border-radius: 6px; position: relative; top: 20px;">
                                     Pay with stripe | {{ (total + (transporter.price / 100))|number_format(2, ',', '.') }} €
                                 </button>
