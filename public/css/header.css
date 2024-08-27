@@ -1,0 +1,73 @@
+/* Define the wizard-navbar background and text color with a lighter theme */
+.wizard-navbar {
+    background: linear-gradient(90deg, #f0f0f0, #d9d9d9); /* Light gradient background */
+    border-bottom: 2px solid #b0b0b0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+}
+
+/* Adjust the logo shadow for a lighter background */
+.navbar-brand img {
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3)); /* Lighter shadow effect */
+}
+
+/* Styling for the nav links */
+.navbar-nav .nav-link {
+    color: #2c3e50; /* Darker text for contrast on light background */
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #8e44ad; /* Purple color on hover for a magical touch */
+}
+
+/* Styling for the dropdown */
+.nav-item.dropdown .dropdown-menu {
+    background-color: #f0f0f0; /* Light background for the dropdown */
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+}
+
+.nav-item.dropdown .dropdown-item {
+    color: #2c3e50; /* Dark text color for readability */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Cinzel', serif;
+}
+
+.nav-item.dropdown .dropdown-item:hover {
+    background-color: #d9d9d9;
+    color: #8e44ad; /* Purple hover color */
+}
+
+/* Styling the navbar-toggler */
+.navbar-toggler {
+    border-color: #b0b0b0;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%232c3e50' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Styling for dropdown-toggle button */
+.nav-item.dropdown .dropdown-toggle::after {
+    content: ' ▼';
+    font-size: 0.8rem;
+    color: #2c3e50; /* Darker color to match the new theme */
+    margin-left: 5px;
+}
+
+/* Add hover effect for navbar-brand */
+.navbar-brand:hover {
+    filter: brightness(1.1);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 992px) {
+    .wizard-navbar {
+        text-align: center;
+    }
+}
