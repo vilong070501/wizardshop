@@ -63,7 +63,8 @@ class CartService
         foreach ($cart as $id => $quantity) {
             $product = $this->entityManager->getRepository(Product::class)->findOneBy(['id' => $id]);
             if (!$product) {
-                // Remove the product and exit the loop
+                // Remove the product and continue the loop
+                $this->removeFromCart($id);
                 continue;
             }
             $cartData[] = [

@@ -15,7 +15,7 @@ body {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease-in-out;
     width: 100%;
-    max-width: 300px;
+    max-width: fit-content;
     margin-top: 20px;
     cursor: pointer;
     position: relative;

@@ -16,8 +16,7 @@
                             <li class="breadcrumb-item active" aria-current="page">Creation of your order</li>
                         </ol>
                     </nav>
-{#                    {{ form_start(form, { action: path('order_prepare') }) }}#}
-                    {{ form_start(form) }}
+                    {{ form_start(form, { action: path('order_prepare') }) }}
                     <h1 class="h2 pb-2">Creation of your order</h1>
                     <h3 class="fs-base fw-normal text-body text-uppercase pb-1 pb-sm-1">
                         1.<span class="text-decoration-underline ms-1">Shipping details</span>
@@ -40,14 +39,14 @@
                     {% for item in recapCart %}
                         {%  set total = total + (item.product.price) * item.quantity %}
                         <div class="d-sm-flex align-items-center border-top py-4">
-                            <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-xl-3 mb-2 mb-sm-0" href="shop-single.html">
+                            <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-xl-3 mb-2 mb-sm-0" href="{{ path('product_detail', { id: item.product.id }) }}">
                                 <img src="{{ vich_uploader_asset(item.product, 'attachmentFile') }}" width="80" height="80" alt="{{ item.product.title }}">
                             </a>
                             <div class="w-100 pt-1 ps-sm-4">
                                 <div class="d-block">
                                     <div class="me-3" style="position: relative; top: 15px;">
                                         <h3 class="h5 mb-2">
-                                            <a href="shop-single.html">{{ item.product.title }}</a>
+                                            <a href="{{ path('product_detail', { id: item.product.id }) }}">{{ item.product.title }}</a>
                                         </h3>
                                         <p>{{ item.product.subtitle }}</p>
                                     </div>
