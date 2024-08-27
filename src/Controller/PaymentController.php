@@ -16,7 +16,6 @@ use Stripe\Exception\ApiErrorException;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -33,7 +32,7 @@ class PaymentController extends AbstractController
      * @throws ApiErrorException
      */
     #[Route('/order/create-session-stripe/{reference}', name: 'payment_stripe', methods: ['POST'])]
-    public function stripeCheckout($reference) : RedirectResponse
+    public function stripeCheckout($reference): RedirectResponse
     {
         $order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
         if (!$order) {
@@ -41,8 +40,7 @@ class PaymentController extends AbstractController
         }
 
         $productStripe = [];
-        foreach ($order->getRecapDetails()->getValues() as $item)
-        {
+        foreach ($order->getRecapDetails()->getValues() as $item) {
             $product = $this->entityManager->getRepository(Product::class)->findOneBy(['title' => $item->getProduct()]);
             $productStripe[] = [
                 'price_data' => [
@@ -103,7 +101,7 @@ class PaymentController extends AbstractController
      * @throws IOException
      */
     #[Route('/order/create-session-paypal/{reference}', name: 'payment_paypal', methods: ['POST'])]
-    public function paypalCheckout($reference) : RedirectResponse
+    public function paypalCheckout($reference): RedirectResponse
     {
         $order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
         if (!$order) {
@@ -113,8 +111,7 @@ class PaymentController extends AbstractController
         $items = [];
         $itemTotal = 0;
 
-        foreach ($order->getRecapDetails()->getValues() as $item)
-        {
+        foreach ($order->getRecapDetails()->getValues() as $item) {
             $items[] = [
                 'name' => $item->getProduct(),
                 'quantity' => $item->getQuantity(),
@@ -152,11 +149,15 @@ class PaymentController extends AbstractController
                 ]
             ],
             'application_context' => [
-                'return_url' => $this->urlGenerator->generate('payment_success', [
+                'return_url' => $this->urlGenerator->generate(
+                    'payment_success',
+                    [
                     'reference' => $order->getReference()],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
-                'cancel_url' => $this->urlGenerator->generate('payment_error', [
+                'cancel_url' => $this->urlGenerator->generate(
+                    'payment_error',
+                    [
                     'reference' => $order->getReference()],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 )
@@ -190,7 +191,7 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/order/success/{reference}', name: 'payment_success')]
-    public function paymentSuccess($reference, CartService $cartService) : Response
+    public function paymentSuccess($reference, CartService $cartService): Response
     {
         $order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
         if (!$order || $order->getUser() !== $this->getUser()) {
@@ -209,7 +210,7 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/order/error/{reference}', name: 'payment_error')]
-    public function paymentError($reference, CartService $cartService) : Response
+    public function paymentError($reference, CartService $cartService): Response
     {
         $order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
         if (!$order || $order->getUser() !== $this->getUser()) {

@@ -18,7 +18,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class OrderController extends AbstractController
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager
     ) {
@@ -44,8 +43,7 @@ class OrderController extends AbstractController
     #[Route('/order/verify', name: 'order_prepare', methods: ['POST'])]
     public function prepareOrder(Request $request, CartService $cartService): Response
     {
-        if (!$this->getUser())
-        {
+        if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
