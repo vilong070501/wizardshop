@@ -42,7 +42,7 @@ class Product
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $attachment = null;
 
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'attachment')]
