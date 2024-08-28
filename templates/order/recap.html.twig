@@ -13,14 +13,14 @@
                         <ol class="mt-5 pt-lg-3 pb-md-1 pb-lg-3 breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ path('home_page') }}">Home</a> </li>
                             <li class="breadcrumb-item"><a href="{{ path('shop_index') }}">Shop</a> </li>
-                            <li class="breadcrumb-item"><a href="{{ path('cart_index') }}">Cart</a> </li>
+                            <li class="breadcrumb-item"><a href="{{ path('order_create') }}">Order creation</a> </li>
                             <li class="breadcrumb-item active" aria-current="page">Confirmation of your order</li>
                         </ol>
                     </nav>
-                    <h1 class="h2 pb-2">Confirmation of your order</h1>
-                    <h3 class="fs-base fw-normal text-body text-uppercase pb-1 pb-sm-1">
+                    <h1 class="h2 pb-2 fw-bold">Confirmation of your order</h1>
+                    <h4 class="fs-base fw-normal text-body text-uppercase pb-1 pb-sm-1">
                         1. <span class="text-decoration-underline ms-1">Shipping details</span>
-                    </h3>
+                    </h4>
                     <div class="form-check mb-4">
                         <input class="form-check-input" type="radio" name="shipping" checked>
                         <label class="form-check-label d-flex justify-content-between">
@@ -31,18 +31,18 @@
                             <span class="fs-base text-dark fw-semibold">{{ (transporter.price / 100)|number_format(2, ',', '.') }} €</span>
                         </label>
                     </div>
-                    <h3 class="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
+                    <h4 class="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
                         2. <span class="text-decoration-underline ms-1">Delivery address</span>
-                    </h3>
+                    </h4>
                     <div class="form-check mb-4">
                         <input class="form-check-input" type="radio" checked>
                         <label class="form-check-label d-flex justify-content-between">
                             <span class="d-block fs-base text-dark fw-medium mb-1">{{ delivery | raw }}</span>
                         </label>
                     </div>
-                    <h3 class="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
+                    <h4 class="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
                         3. <span class="text-decoration-underline ms-1">Payment method</span>
-                    </h3>
+                    </h4>
                     <div class="form-check mb-4">
                         <input class="form-check-input" type="radio" checked>
                         <label class="form-check-label d-flex justify-content-between">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1 pt-1">
-                    <h2 class="pb-2 pt-md-2 my-4 mt-lg-5">
+                    <h2 class="pb-2 pt-md-2 my-4 mt-lg-5 fw-bold">
                         Order summary <span class="fs-base fw-normal text-muted">({{ recapCart|length }} product(s))</span>
                     </h2>
                     {% set total = null %}
@@ -65,7 +65,7 @@
                                 <div class="d-flex">
                                     <div class="me-3">
                                         <h3 class="h5 mb-2">
-                                            <a href="{{ path('product_detail', { id: item.product.id }) }}">{{ item.product.title }}</a>
+                                            <a href="{{ path('product_detail', { id: item.product.id }) }}" class="text-decoration-none">{{ item.product.title }}</a>
                                         </h3>
                                     </div>
                                     <div class="text-end ms-auto">
@@ -75,6 +75,7 @@
                                 <div class="nav justify-content-end mt-2">
                                     <a class="nav-link fs-xl p-2" href="{{ path('cart_remove', { id: item.product.id }) }}" data-bs-toggle="tooltip" title="Remove">
                                         <i class="fa-solid fa-trash-can"></i>
+                                        <span style="font-family: 'Crimson Text', serif; text-decoration: underline">Remove</span>
                                     </a>
                                 </div>
                             </div>

@@ -16,8 +16,10 @@
         <!-- Right Part: Product Information -->
         <div class="product-info">
             <h1 class="product-title">{{ product.title }}</h1>
-            <div class="product-price">{{ product.price|number_format(2, '.', ',') }} €</div>
-            <div class="product-subtitle">{{ product.subtitle }}</div>
+            <div class="product-price">{{ product.price|number_format(2, ',', '.') }} €</div>
+            <div class="product-subtitle" style="text-align: justify;">
+                <p>{{ product.subtitle }}</p>
+            </div>
 
             <a href="{{ path('cart_add', { id: product.id }) }}" class="add-to-cart-btn">
                 <span class="cart-icon">&#128722;</span> <!-- Unicode cart icon -->

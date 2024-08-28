@@ -46,7 +46,7 @@ class Address
 
     public function __toString(): string
     {
-        return $this->title . '[-br]' .
+        return '[b]' . $this->title . '[-b][-br]' .
             $this->address . '[-br]' .
             $this->city . ' - ' .
             $this->country;
