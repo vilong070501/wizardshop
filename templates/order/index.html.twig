@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Creation of your order{% endblock %}
 
 {% block stylesheets %}{% endblock %}
 
@@ -17,26 +17,29 @@
                         </ol>
                     </nav>
                     {{ form_start(form, { action: path('order_prepare') }) }}
-                    <h1 class="h2 pb-2">Creation of your order</h1>
-                    <h3 class="fs-base fw-normal text-body text-uppercase pb-1 pb-sm-1">
-                        1.<span class="text-decoration-underline ms-1">Shipping details</span>
-                    </h3>
-                    <p>If you don't have any address yet, add one in your account area <a href="#">Add an address</a></p>
-                    <h3 class="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
-                        2.<span class="text-decoration-underline ms-1">Choose your delivery</span>
-                    </h3>
-                    {{ form_row(form.addresses)|replace({'[-br]' : '<br/>'})|raw}}
-                    <h3 class="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
-                        3.<span class="text-decoration-underline ms-1">Delivery method</span>
-                    </h3>
-                    {{ form_row(form.transporter)|replace({'[-br]' : '<br/>'})|raw}}
-                    <h3 class="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
-                        4.<span class="text-decoration-underline ms-1">Payment method</span>
-                    </h3>
-                    {{ form_row(form.payment)}}
+                    <h2 class="pb-2 fw-bold">Creation of your order</h2>
+                    <div class="border-top py-4">
+                        <h4 class="fs-base fw-normal text-body text-uppercase pb-1 pb-sm-1">
+                            1.<span class="text-decoration-underline ms-1">Shipping details</span>
+                        </h4>
+                        <p>If you don't have any address yet, add one in your account area <a href="#">Add an address</a></p>
+                        <h4 class="fs-base fw-normal text-body text-uppercase pb-2 pb-sm-3">
+                            2.<span class="text-decoration-underline ms-1">Choose your delivery</span>
+                        </h4>
+                        {{ form_row(form.addresses)|replace({'[-br]' : '<br/>', '[b]' : '<b>', '[-b]' : '</b>'})|raw}}
+                        <h4 class="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
+                            3.<span class="text-decoration-underline ms-1">Delivery method</span>
+                        </h4>
+                        {{ form_row(form.transporter)|replace({'[-br]' : '<br/>', '[b]' : '<b>', '[-b]' : '</b>'})|raw}}
+                        <h4 class="fs-base fw-normal text-body text-uppercase mt-n4 mt-md-n3 pt-5 pb-2 pb-sm-3">
+                            4.<span class="text-decoration-underline ms-1">Payment method</span>
+                        </h4>
+                        {{ form_row(form.payment)}}
+                    </div>
+
                 </div>
                 <div class="col-lg-5 offset-lg-1 pt-1">
-                    <h2 class="pb-2 pt-md-2 my-4 mt-lg-5">
+                    <h2 class="pb-2 pt-md-2 my-4 mt-lg-5 fw-bold">
                         Order summary <span class="fs-base fw-normal text-muted">({{ recapCart|length }} product(s))</span>
                     </h2>
                     {% set total = null %}
@@ -50,9 +53,9 @@
                                 <div class="d-block">
                                     <div class="me-3" style="position: relative; top: 15px;">
                                         <h3 class="h5 mb-2">
-                                            <a href="{{ path('product_detail', { id: item.product.id }) }}">{{ item.product.title }}</a>
+                                            <a href="{{ path('product_detail', { id: item.product.id }) }}" class="text-decoration-none">{{ item.product.title }}</a>
                                         </h3>
-                                        <p>{{ item.product.subtitle }}</p>
+                                        <p style="text-align: justify;">{{ item.product.subtitle }}</p>
                                     </div>
                                     <div>
                                         <p class="mb-2">Quantity: <b>x{{ item.quantity }}</b> - Price of product: <b>{{ (item.product.price)|number_format(2, ',', '.') }} €</b></p>
@@ -61,6 +64,7 @@
                                 <div class="nav justify-content-end mt-n4">
                                     <a class="nav-link fs-xl p-2" href="{{ path('cart_remove', { id: item.product.id }) }}" data-bs-toggle="tooltip" title="Remove">
                                         <i class="fa-solid fa-trash-can"></i>
+                                        <span style="font-family: 'Crimson Text', serif; text-decoration: underline">Remove</span>
                                     </a>
                                 </div>
                             </div>

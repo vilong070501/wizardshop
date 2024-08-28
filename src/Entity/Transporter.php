@@ -25,7 +25,7 @@ class Transporter
 
     public function __toString(): string
     {
-        return $this->title . '[-br]' .
+        return '[b]' . $this->title . '[-b][-br]' .
             $this->content . '[-br]' .
             number_format($this->price / 100, 2, ',', ',') . ' €' ;
     }

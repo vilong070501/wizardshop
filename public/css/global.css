@@ -3,6 +3,11 @@ body {
     font-family: 'Cinzel', serif;
 }
 
+p {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.2rem;
+}
+
 /* Define styles for the mysterious confirm button */
 .confirm-button {
     font-size: 1.2rem;
