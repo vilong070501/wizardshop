@@ -19,9 +19,13 @@
 
             <h1 class="text-center">Sign in</h1>
             <label for="inputEmail">E-mail</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control m-lg-3" autocomplete="email" required autofocus placeholder="E-mail">
+            <p>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control m-lg-3" autocomplete="email" required autofocus placeholder="E-mail">
+            </p>
             <label for="inputPassword">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control m-lg-3" autocomplete="current-password" required placeholder="Password">
+            <p>
+                <input type="password" name="password" id="inputPassword" class="form-control m-lg-3" autocomplete="current-password" required placeholder="Password">
+            </p>
 
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"
