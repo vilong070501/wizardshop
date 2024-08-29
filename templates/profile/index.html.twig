@@ -3,7 +3,7 @@
 {% block title %}Your Profile{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}"
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -25,6 +25,7 @@
             </div>
             <div class="align-items-start">
                 <a href="{{ path('profile_change_password') }}" class="btn text-decoration-underline">Update my password</a>
+                <a href="{{ path('address_index') }}" class="btn text-decoration-underline">Update my addresses</a>
             </div>
             <div class="d-flex justify-content-center align-items-center mt-4">
                 <button type="submit" class="btn btn-primary btn-update">Update Profile</button>

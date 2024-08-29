@@ -28,10 +28,11 @@ class ProfileController extends AbstractController
         EntityManagerInterface $entityManager,
         MailerService $mailerService,
         TokenGeneratorInterface $tokenGenerator
-    ): Response
-    {
+    ): Response {
         /** @var User $user */
-        $user = $this->getUser();
+        if (!$user = $this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $currentUsername = $user->getUsername();
         $currentEmail = $user->getEmail();
 
@@ -103,10 +104,11 @@ class ProfileController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $userPasswordHasher,
-    ): Response
-    {
+    ): Response {
         /** @var User $user */
-        $user = $this->getUser();
+        if (!$user = $this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $currentPasswordDb = $user->getPassword();
 
         $form = $this->createForm(UpdatePasswordType::class);
@@ -134,6 +136,10 @@ class ProfileController extends AbstractController
             if ($currentPassword !== $newPassword) {
                 $user->setPassword($newPassword);
                 $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Your password has been successfully updated !'
+                );
                 return $this->redirectToRoute('profile_index');
             }
         }

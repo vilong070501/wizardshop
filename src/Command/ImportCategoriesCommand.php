@@ -20,12 +20,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ImportCategoriesCommand extends Command
 {
-    const IMPORT_FOLDER='var/init/import/';
+    const IMPORT_FOLDER = 'var/init/import/';
 
     public function __construct(
         private EntityManagerInterface $entityManager,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
