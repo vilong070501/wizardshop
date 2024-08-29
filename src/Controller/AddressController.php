@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\User;
 use App\Form\AddressFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,6 +45,31 @@ class AddressController extends AbstractController
 
         return $this->render('address/index.html.twig', [
             'addressesForms' => $addressesForms,
+        ]);
+    }
+
+    #[Route('/address/add', name: 'address_add')]
+    public function addAddress(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        /** @var User $user */
+        if (!$user = $this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $address = new Address();
+        $form = $this->createForm(AddressFormType::class, $address);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->addAddress($address);
+            $entityManager->persist($address);
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Your address has been successfully added !'
+            );
+            $this->redirectToRoute('profile_index');
+        }
+        return $this->render('address/add_address.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
