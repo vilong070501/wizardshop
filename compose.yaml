@@ -33,7 +33,7 @@ services:
       dockerfile: docker/Dockerfile
     container_name: wizard_shop_php
     volumes:
-      - ./:/var/www
+      - ./:/var/www/html
     restart: always
     ports:
       - "8000:80"

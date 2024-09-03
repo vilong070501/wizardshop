@@ -18,17 +18,21 @@ RUN apt update && apt install -yqq \
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
 RUN apt install symfony-cli -y
 
-COPY . /var/www/
+COPY . /var/www/html/
 
 COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
-RUN cd /var/www && \
+RUN cd /var/www/html && \
     composer install && \
     npm install --force && \
     npm run build
 
 RUN a2enmod rewrite
 
-WORKDIR /var/www/
+WORKDIR /var/www/html
+
+RUN chown -R www-data:www-data /var/www/html/var && \
+    chown -R www-data:www-data /var/www/html/public && \
+    chmod +w /var/www/html/public
 
 EXPOSE 80
