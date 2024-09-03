@@ -22,8 +22,8 @@ class ImportProductsCommand extends Command
     const IMPORT_FOLDER = 'var/init/import/';
 
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private CategoryShopRepository $categoryShopRepository,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly CategoryShopRepository $categoryShopRepository,
     ) {
         parent::__construct();
     }

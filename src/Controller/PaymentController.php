@@ -23,8 +23,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class PaymentController extends AbstractController
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private UrlGeneratorInterface $urlGenerator,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UrlGeneratorInterface  $urlGenerator,
     ) {
     }
 
