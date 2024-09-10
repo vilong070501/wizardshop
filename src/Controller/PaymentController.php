@@ -24,7 +24,7 @@ class PaymentController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly UrlGeneratorInterface  $urlGenerator,
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
