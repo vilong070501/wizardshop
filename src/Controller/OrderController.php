@@ -8,7 +8,9 @@ use App\Entity\Product;
 use App\Entity\RecapDetails;
 use App\Entity\Transporter;
 use App\Form\OrderType;
+use App\Repository\TransporterRepository;
 use App\Service\CartService;
+use App\Service\OrderHistoryService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +21,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class OrderController extends AbstractController
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
+        private readonly TransporterRepository $transporterRepository
     ) {
     }
 
@@ -99,14 +102,46 @@ class OrderController extends AbstractController
             $this->entityManager->flush();
 
             return $this->render('order/recap.html.twig', [
+                'context' => 'verify',
                 'method' => $order->getMethod(),
                 'recapCart' => $cartService->getTotal(),
                 'transporter' => $transporter,
                 'delivery' => $deliveryForOrder,
                 'reference' => $reference,
+                'isPaid' => $order->isPaid(),
             ]);
         }
 
         return $this->redirectToRoute('cart_index');
+    }
+
+    #[Route('/order/history', name: 'order_history')]
+    public function orderHistory(OrderHistoryService $service): Response
+    {
+        $orders = $service->getAllPassedOrders();
+        return $this->render('order_history/index.html.twig', [
+            'orders' => $orders,
+        ]);
+    }
+
+    #[Route('/order/recap/{reference}', name: 'order_recap')]
+    public function orderRecap(string $reference, OrderHistoryService $service): Response
+    {
+        $order = $service->getOrderByReference($reference);
+        if (!$order) {
+            return $this->redirectToRoute('order_history');
+        }
+
+        $transporter = $this->transporterRepository->findOneBy(['title' => $order->getTransporterName()]);
+
+        return $this->render('order/recap.html.twig', [
+            'context' => 'history',
+            'method' => $order->getMethod(),
+            'recapCart' => $service->getRecapForOrder($order)['cart'],
+            'transporter' => $transporter,
+            'delivery' => $order->getDelivery(),
+            'reference' => $reference,
+            'isPaid' => $order->isPaid(),
+        ]);
     }
 }

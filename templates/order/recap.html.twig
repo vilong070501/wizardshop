@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Confirm your order{% endblock %}
+{% block title %}
+    {% if context == 'history' %}
+        Order Summary
+    {% elseif context == 'verify' %}
+        Confirm your Order
+    {% endif %}
+{% endblock %}
 
 {% block stylesheets %}{% endblock %}
 
@@ -8,16 +14,23 @@
     <div class="d-none d-lg-block position-relative top-0 start-0 h-100">
         <div class="container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2">
             <div class="row">
-                <div class="col-lg-6">
-                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="mt-5 pt-lg-3 pb-md-1 pb-lg-3 breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ path('home_page') }}">Home</a> </li>
-                            <li class="breadcrumb-item"><a href="{{ path('shop_index') }}">Shop</a> </li>
-                            <li class="breadcrumb-item"><a href="{{ path('order_create') }}">Order creation</a> </li>
-                            <li class="breadcrumb-item active" aria-current="page">Confirmation of your order</li>
-                        </ol>
-                    </nav>
-                    <h1 class="h2 pb-2 fw-bold">Confirmation of your order</h1>
+                <div class="col-lg-5">
+                    {% if context == 'verify' %}
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class="mt-5 pt-lg-3 pb-md-1 pb-lg-3 breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('home_page') }}">Home</a> </li>
+                                <li class="breadcrumb-item"><a href="{{ path('shop_index') }}">Shop</a> </li>
+                                <li class="breadcrumb-item"><a href="{{ path('order_create') }}">Order creation</a> </li>
+                                <li class="breadcrumb-item active" aria-current="page">Confirmation of your order</li>
+                            </ol>
+                        </nav>
+                        <h1 class="h2 pb-2 fw-bold">Confirmation of your order</h1>
+                    {% elseif context == 'history' %}
+                        <nav class="mb-4" aria-label="Order history">
+                            <a href="{{ path('order_history') }}">Order history</a>
+                        </nav>
+                        <h1 class="h2 pb-2 fw-bold">Various information</h1>
+                    {% endif %}
                     <h4 class="fs-base fw-normal text-body text-uppercase pb-1 pb-sm-1">
                         1. <span class="text-decoration-underline ms-1">Shipping details</span>
                     </h4>
@@ -50,7 +63,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-lg-5 offset-lg-1 pt-1">
+                <div class="col-lg-6 offset-lg-1 pt-1">
                     <h2 class="pb-2 pt-md-2 my-4 mt-lg-5 fw-bold">
                         Order summary <span class="fs-base fw-normal text-muted">({{ recapCart|length }} product(s))</span>
                     </h2>
@@ -67,17 +80,21 @@
                                         <h3 class="h5 mb-2">
                                             <a href="{{ path('product_detail', { id: item.product.id }) }}" class="text-decoration-none">{{ item.product.title }}</a>
                                         </h3>
+                                        <p style="text-align: justify;">{{ item.product.subtitle }}</p>
+                                        <p>Quantity: <b>x{{ item.quantity }}</b></p>
                                     </div>
                                     <div class="text-end ms-auto">
                                         <div class="fs-5 mb-2">{{ (item.product.price)|number_format(2, ',', '.') }} €</div>
                                     </div>
                                 </div>
+                                {% if context == 'verify' %}
                                 <div class="nav justify-content-end mt-2">
                                     <a class="nav-link fs-xl p-2" href="{{ path('cart_remove', { id: item.product.id }) }}" data-bs-toggle="tooltip" title="Remove">
                                         <i class="fa-solid fa-trash-can"></i>
                                         <span style="font-family: 'Crimson Text', serif; text-decoration: underline">Remove</span>
                                     </a>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
@@ -93,21 +110,23 @@
                     <div class="d-flex align-items-center justify-content-between border-top fs-xl pt-4">
                         Total: <span class="fs-3 fw-semibold text-dark ms-2">{{ (total + (transporter.price / 100))|number_format(2, ',', '.') }} €</span>
                     </div>
-                    <div class="mt-4 text-center">
-                        {% if method == 'stripe' %}
-                            <form method="POST" action="{{ path('payment_stripe', { reference: reference }) }}">
-                                <button class="confirm-button" type="submit" style="border-radius: 6px; position: relative; top: 20px;">
-                                    Pay with stripe | {{ (total + (transporter.price / 100))|number_format(2, ',', '.') }} €
-                                </button>
-                            </form>
-                        {% else %}
-                            <form method="POST" action="{{ path('payment_paypal', { reference: reference }) }}">
-                                <button class="confirm-button" type="submit" style="border-radius: 6px; position: relative; top: 20px;">
-                                    Pay with paypal | {{ (total + (transporter.price / 100))|number_format(2, ',', '.') }} €
-                                </button>
-                            </form>
-                        {% endif %}
-                    </div>
+                    {% if not isPaid %}
+                        <div class="mt-4 text-center">
+                            {% if method == 'stripe' %}
+                                <form method="POST" action="{{ path('payment_stripe', { reference: reference }) }}">
+                                    <button class="confirm-button" type="submit" style="border-radius: 6px; position: relative; top: 20px;">
+                                        Pay with stripe | {{ (total + (transporter.price / 100))|number_format(2, ',', '.') }} €
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form method="POST" action="{{ path('payment_paypal', { reference: reference }) }}">
+                                    <button class="confirm-button" type="submit" style="border-radius: 6px; position: relative; top: 20px;">
+                                        Pay with paypal | {{ (total + (transporter.price / 100))|number_format(2, ',', '.') }} €
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
