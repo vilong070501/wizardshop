@@ -43,7 +43,7 @@ h1 {
 }
 
 .product-card {
-    background-color: #fff;
+    background-color: #f8f5e8;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -78,4 +78,14 @@ h1 {
 .container {
     position: relative;
     z-index: 2;
+}
+
+/* Filter sidebar styling */
+.filter-sidebar {
+    background-color: #f8f5e8;
+    color: #0a0a0a;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
 }

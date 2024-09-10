@@ -25,4 +25,14 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'nouislider' => [
+        'version' => '15.8.1',
+    ],
+    'nouislider/dist/nouislider.min.css' => [
+        'version' => '15.8.1',
+        'type' => 'css',
+    ],
+    '@symfony/webpack-encore' => [
+        'version' => '4.7.0',
+    ],
 ];

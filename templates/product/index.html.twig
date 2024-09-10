@@ -12,24 +12,40 @@
         <div class="background-image"></div>
     </div>
 
+    <h1 class="text-center my-5">Our Magical Products</h1>
+
     <!-- Main content container -->
     <div class="container content-container">
-        <h1 class="text-center my-5">Our Magical Products</h1>
-
-        <div class="product-grid">
-            {% for product in products %}
-                <div class="product-card">
-                    <a href="{{ path('product_detail', { id: product.id }) }}">
-                        <img src="{{ asset('uploads/attachments/' ~ product.attachment) }}" alt="{{ product.title }}">
-                    </a>
-                    <div class="product-info">
-                        <div class="product-title">{{ product.title }}</div>
-                        <div class="product-price">{{ product.price|number_format(2, '.', ',') }} €</div>
-                    </div>
+        <div class="row">
+            <!-- Filter sidebar -->
+            <div class="col-md-3 mb-4">
+                <div class="filter-sidebar p-4">
+                    {% include 'product/_filter.html.twig' with { form: form } only %}
                 </div>
-            {% else %}
-                <p class="text-center col-12">No products found.</p>
-            {% endfor %}
+            </div>
+
+            <!-- Product grid -->
+            <div class="col-md-9">
+                <div class="product-grid row">
+                    {% for product in products %}
+                        <div class="product-card">
+                            <a href="{{ path('product_detail', { id: product.id }) }}">
+                                <img src="{{ asset('uploads/attachments/' ~ product.attachment) }}" alt="{{ product.title }}">
+                            </a>
+                            <div class="product-info">
+                                <div class="product-title">{{ product.title }}</div>
+                                <div class="product-price">{{ product.price|number_format(2, '.', ',') }} €</div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-center col-12">No products found.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination-container mt-4">
+            {{ knp_pagination_render(products) }}
         </div>
     </div>
 {% endblock %}

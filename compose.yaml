@@ -53,6 +53,29 @@ services:
     networks:
       - online-shop
 
+#  # Elasticsearch
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.23
+#    container_name: wizard_shop_elasticsearch
+#    ports:
+#      - "9209:9200"
+#    environment:
+#      - discovery.type=single-node
+#      - bootstrap.memory_lock=true
+#      - ES_JAVA_OPTS=-Xms1G -Xmx1G
+#      - xpack.security.enabled=false
+#      - http.cors.enabled=true
+#      - http.cors.allow-origin=*
+#      - transport.host=localhost
+#
+#  elasticsearch-head:
+#    image: tobias74/elasticsearch-head
+#    container_name: wizard_shop_elasticsearch_head
+#    depends_on:
+#      - elasticsearch
+#    ports:
+#      - "9109:9100"
+
 networks:
   online-shop:
 
