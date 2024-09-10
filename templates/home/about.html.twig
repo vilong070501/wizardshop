@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About me{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img src="{{ asset('images/about-me.jpg') }}" alt="About me" class="img-fluid">
+            </div>
+            <div class="col">
+                <h2 class="fw-bold mt-4 mb-5">Welcome guys to my website 😎 !</h2>
+                <p style="text-align: justify">This is just a small personal project, a combination of coding hobby and possession
+                    about a wizard word 🧙‍♂️.<br/>
+                    <br/>
+                    You will find some basic features of an E-commerce website, such as the <b>Home page</b>,
+                    <b>Shopping area</b>, <b>Cart and Payment feature</b>. Additional features for user management
+                    include <b>User Profiles</b>, <b>Order History</b>, and so forth.<br/>
+                    When visiting this website, you will be able to visualize a product from the Shopping page,
+                    add it to your cart and then proceed with the payment, where you will have to define at least one delivery address,
+                    shipping company and payment method.
+                    <br/>
+                    This website is mainly built with <b>Symfony</b> framework because of it offers a stable environment and an active community
+                    of developers who have already had the answer to most of the problems that you might have.
+                </p>
+                <p>
+                    If you found the website interesting and are curious about how I created it, please have a look at my Github repository
+                    <a href="https://github.com/vilong070501/wizardshop">https://github.com/vilong070501/wizardshop</a>,
+                    and don't hesitate to give it a star if you like it 😉.
+                </p>
+                <p>
+                    All suggestions for improvement are welcome to my e-mail address luongvilong2001@gmail.com.<br/>
+                    After all, I am just a Junior Developer 😜.
+                </p>
+                <p>Thank you for your time ! May your day be pleasant !</p>
+
+                <b>Vi Long Luong</b>
+            </div>
+        </div>
+    </div>
+{% endblock %}
