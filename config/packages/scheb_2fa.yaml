@@ -8,3 +8,4 @@ scheb_two_factor:
         sender_email: noreply@wizardshop.com
         sender_name: Wizard Shop
         digits: 4
+        template: security/2fa_form.html.twig

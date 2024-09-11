@@ -3,32 +3,30 @@
 {% block title %}Two-Factor Authentication{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
         <div class="2fa-container">
             <h1 class="text-center">Two-Factor Authentication</h1>
 
-            <p class="text-center">Please enter the authentication code sent to your email.</p>
+            <p class="text-center mt-5">Please enter the authentication code sent to your email.</p>
 
             {# Display any error messages #}
             {% if authenticationError %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <p>{{ authenticationError|trans(authenticationErrorData, 'SchebTwoFactorBundle') }}</p>
             {% endif %}
 
-            {# Form Start #}
-            <form method="post">
-                <div class="mb-3">
+            <form action="{{ checkPathUrl ? checkPathUrl: path(checkPathRoute) }}" method="post" class="text-center">
+                <div class="mb-3 row d-flex justify-content-center">
                     <label for="2fa_code" class="form-label">Authentication Code</label>
-                    <input type="text" id="2fa_code" name="_auth_code" class="form-control" required autofocus>
+                    <input type="text" id="2fa_code" name="_auth_code" class="form-control w-50" required autofocus>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Verify</button>
+                <button type="submit" class="btn btn-primary mt-4">Verify</button>
 
                 {# Add a hidden field to pass the CSRF token #}
                 <input type="hidden" name="_csrf_token"
                        value="{{ csrf_token('authenticate') }}"
                 >
             </form>
-            {# Form End #}
         </div>
     </div>
 {% endblock %}
